@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 业务数据抽取生成短信配置 -->
+<sms_back>
+	<table name="JCJ_JWPT_JJXX" extcode="07">
+		<!-- 业务编号 -->
+		<busniessno>iidd</busniessno>
+		<!-- 联系人 -->
+		<contacts>bjr</contacts>
+		<!-- 联系电话 -->
+		<phonenNumber>lxdh</phonenNumber>
+		<!-- 主办单位 -->
+		<sponsor>ejjsdw</sponsor>
+	</table>
+	<table name="za_ck_rk_ywpjxx" extcode="11">
+		<!-- 业务编号 -->
+		<busniessno>iidd</busniessno>
+		<!-- 联系人 -->
+		<contacts>xm</contacts>
+		<!-- 联系电话 -->
+		<phonenNumber>lxfs</phonenNumber>
+		<!-- 主办单位 -->
+		<sponsor>sldwjgdm</sponsor>
+	</table>
+	<table name="AJ_JWPT_JBXX" extcode="08">
+		<!-- 业务编号 -->
+		<busniessno>iidd</busniessno>
+		<!-- 联系人 -->
+		<contacts>barxm</contacts>
+		<!-- 联系电话 -->
+		<phonenNumber>barlxfs</phonenNumber>
+		<!-- 主办单位 -->
+		<sponsor>zbdw</sponsor>
+	</table>
+</sms_back>

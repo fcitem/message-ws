@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.RefreshRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.message.entity.RefreshRecord" >
+    <id column="BUSINESS_NO" property="businessNo" jdbcType="VARCHAR" />
+    <id column="EXTCODE" property="extcode" jdbcType="VARCHAR" />
+    <result column="RKSJC" property="rksjc" jdbcType="TIMESTAMP" />
+    <result column="PHONENO" property="phoneno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUSINESS_NO, EXTCODE, RKSJC, PHONENO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.message.entity.RefreshRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TAB_BUSINESS_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.message.entity.RefreshRecordKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from TAB_BUSINESS_RECORDS
+    where BUSINESS_NO = #{businessNo,jdbcType=VARCHAR}
+      and EXTCODE = #{extcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.message.entity.RefreshRecordKey" >
+    delete from TAB_BUSINESS_RECORDS
+    where BUSINESS_NO = #{businessNo,jdbcType=VARCHAR}
+      and EXTCODE = #{extcode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.message.entity.RefreshRecordExample" >
+    delete from TAB_BUSINESS_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.message.entity.RefreshRecord" >
+    insert into TAB_BUSINESS_RECORDS (BUSINESS_NO, EXTCODE, RKSJC, 
+      PHONENO)
+    values (#{businessNo,jdbcType=VARCHAR}, #{extcode,jdbcType=VARCHAR}, #{rksjc,jdbcType=TIMESTAMP}, 
+      #{phoneno,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.message.entity.RefreshRecord" >
+    insert into TAB_BUSINESS_RECORDS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessNo != null" >
+        BUSINESS_NO,
+      </if>
+      <if test="extcode != null" >
+        EXTCODE,
+      </if>
+      <if test="rksjc != null" >
+        RKSJC,
+      </if>
+      <if test="phoneno != null" >
+        PHONENO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessNo != null" >
+        #{businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="extcode != null" >
+        #{extcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rksjc != null" >
+        #{rksjc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneno != null" >
+        #{phoneno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.message.entity.RefreshRecordExample" resultType="java.lang.Integer" >
+    select count(*) from TAB_BUSINESS_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TAB_BUSINESS_RECORDS
+    <set >
+      <if test="record.businessNo != null" >
+        BUSINESS_NO = #{record.businessNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extcode != null" >
+        EXTCODE = #{record.extcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rksjc != null" >
+        RKSJC = #{record.rksjc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.phoneno != null" >
+        PHONENO = #{record.phoneno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TAB_BUSINESS_RECORDS
+    set BUSINESS_NO = #{record.businessNo,jdbcType=VARCHAR},
+      EXTCODE = #{record.extcode,jdbcType=VARCHAR},
+      RKSJC = #{record.rksjc,jdbcType=TIMESTAMP},
+      PHONENO = #{record.phoneno,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.message.entity.RefreshRecord" >
+    update TAB_BUSINESS_RECORDS
+    <set >
+      <if test="rksjc != null" >
+        RKSJC = #{rksjc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneno != null" >
+        PHONENO = #{phoneno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BUSINESS_NO = #{businessNo,jdbcType=VARCHAR}
+      and EXTCODE = #{extcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.message.entity.RefreshRecord" >
+    update TAB_BUSINESS_RECORDS
+    set RKSJC = #{rksjc,jdbcType=TIMESTAMP},
+      PHONENO = #{phoneno,jdbcType=VARCHAR}
+    where BUSINESS_NO = #{businessNo,jdbcType=VARCHAR}
+      and EXTCODE = #{extcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

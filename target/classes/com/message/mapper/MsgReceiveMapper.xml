@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.MsgReceiveMapper" >
+  <resultMap id="BaseResultMap" type="com.message.entity.MsgReceive" >
+    <id column="RECEIVE_ID" property="receiveId" jdbcType="VARCHAR" />
+    <result column="SMS_ID" property="smsId" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="RECEIVE_TIME" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="NORMAL_STATE" property="normalState" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="RECEIVE_TYPE" property="receiveType" jdbcType="DECIMAL" />
+    <result column="SMS_ORDER" property="smsOrder" jdbcType="DECIMAL" />
+    <result column="SMS_TIME" property="smsTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RECEIVE_ID, SMS_ID, CONTENT, RECEIVE_TIME, NORMAL_STATE, CREATE_TIME, RECEIVE_TYPE, 
+    SMS_ORDER, SMS_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.message.entity.MsgReceiveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from TAB_SMS_RECEIVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TAB_SMS_RECEIVE
+    where RECEIVE_ID = #{receiveId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TAB_SMS_RECEIVE
+    where RECEIVE_ID = #{receiveId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.message.entity.MsgReceiveExample" >
+    delete from TAB_SMS_RECEIVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.message.entity.MsgReceive" >
+    insert into TAB_SMS_RECEIVE (RECEIVE_ID, SMS_ID, CONTENT, 
+      RECEIVE_TIME, NORMAL_STATE, CREATE_TIME, 
+      RECEIVE_TYPE, SMS_ORDER, SMS_TIME
+      )
+    values (#{receiveId,jdbcType=VARCHAR}, #{smsId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=TIMESTAMP}, #{normalState,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{receiveType,jdbcType=DECIMAL}, #{smsOrder,jdbcType=DECIMAL}, #{smsTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.message.entity.MsgReceive" >
+    insert into TAB_SMS_RECEIVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiveId != null" >
+        RECEIVE_ID,
+      </if>
+      <if test="smsId != null" >
+        SMS_ID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME,
+      </if>
+      <if test="normalState != null" >
+        NORMAL_STATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="receiveType != null" >
+        RECEIVE_TYPE,
+      </if>
+      <if test="smsOrder != null" >
+        SMS_ORDER,
+      </if>
+      <if test="smsTime != null" >
+        SMS_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiveId != null" >
+        #{receiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsId != null" >
+        #{smsId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="normalState != null" >
+        #{normalState,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveType != null" >
+        #{receiveType,jdbcType=DECIMAL},
+      </if>
+      <if test="smsOrder != null" >
+        #{smsOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTime != null" >
+        #{smsTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.message.entity.MsgReceiveExample" resultType="java.lang.Integer" >
+    select count(*) from TAB_SMS_RECEIVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TAB_SMS_RECEIVE
+    <set >
+      <if test="record.receiveId != null" >
+        RECEIVE_ID = #{record.receiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsId != null" >
+        SMS_ID = #{record.smsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveTime != null" >
+        RECEIVE_TIME = #{record.receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.normalState != null" >
+        NORMAL_STATE = #{record.normalState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receiveType != null" >
+        RECEIVE_TYPE = #{record.receiveType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.smsOrder != null" >
+        SMS_ORDER = #{record.smsOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="record.smsTime != null" >
+        SMS_TIME = #{record.smsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TAB_SMS_RECEIVE
+    set RECEIVE_ID = #{record.receiveId,jdbcType=VARCHAR},
+      SMS_ID = #{record.smsId,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      RECEIVE_TIME = #{record.receiveTime,jdbcType=TIMESTAMP},
+      NORMAL_STATE = #{record.normalState,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      RECEIVE_TYPE = #{record.receiveType,jdbcType=DECIMAL},
+      SMS_ORDER = #{record.smsOrder,jdbcType=DECIMAL},
+      SMS_TIME = #{record.smsTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.message.entity.MsgReceive" >
+    update TAB_SMS_RECEIVE
+    <set >
+      <if test="smsId != null" >
+        SMS_ID = #{smsId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="normalState != null" >
+        NORMAL_STATE = #{normalState,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveType != null" >
+        RECEIVE_TYPE = #{receiveType,jdbcType=DECIMAL},
+      </if>
+      <if test="smsOrder != null" >
+        SMS_ORDER = #{smsOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="smsTime != null" >
+        SMS_TIME = #{smsTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RECEIVE_ID = #{receiveId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.message.entity.MsgReceive" >
+    update TAB_SMS_RECEIVE
+    set SMS_ID = #{smsId,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+      NORMAL_STATE = #{normalState,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      RECEIVE_TYPE = #{receiveType,jdbcType=DECIMAL},
+      SMS_ORDER = #{smsOrder,jdbcType=DECIMAL},
+      SMS_TIME = #{smsTime,jdbcType=TIMESTAMP}
+    where RECEIVE_ID = #{receiveId,jdbcType=VARCHAR}
+  </update>
+  <!-- orale 不支持批量插入的正常写法 ，见注解动态sql形式 -->
+	<insert id="batchInsert" parameterType="java.util.List">
+	insert ALL
+		<foreach item="item" collection="list">
+			into TAB_SMS_RECEIVE
+			values
+			(#{item.receiveId,jdbcType=VARCHAR},
+			#{item.smsId,jdbcType=VARCHAR},
+			#{item.content,jdbcType=VARCHAR},
+			#{item.receiveTime,jdbcType=TIMESTAMP},
+			#{item.normalState,jdbcType=DECIMAL},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.receiveType,jdbcType=DECIMAL},
+			#{item.smsOrder,jdbcType=DECIMAL},
+			#{item.smsTime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+</mapper>

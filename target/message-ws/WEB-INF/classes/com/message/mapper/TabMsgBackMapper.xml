@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.message.dao.TabMsgBackMapper">
+	<resultMap id="BaseResultMap" type="com.message.entity.TabMsgBack">
+		<id column="SMS_ID" property="smsId" jdbcType="VARCHAR" />
+		<result column="BUSINESS_NO" property="businessNo" jdbcType="VARCHAR" />
+		<result column="BUSINESS_TYPE" property="businessType"
+			jdbcType="VARCHAR" />
+		<result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
+		<result column="CONTACTS_PHONE" property="contactsPhone"
+			jdbcType="VARCHAR" />
+		<result column="SPONSOR" property="sponsor" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="SMS_STATE" property="smsState" jdbcType="DECIMAL" />
+		<result column="SMS_TYPE" property="smsType" jdbcType="DECIMAL" />
+		<result column="SMS_TIME" property="smsTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		SMS_ID, BUSINESS_NO, BUSINESS_TYPE, CONTACTS,
+		CONTACTS_PHONE, SPONSOR,
+		CONTENT, SMS_STATE,SMS_TYPE,
+		SMS_TIME, CREATE_TIME
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.message.entity.TabMsgBackExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from TAB_SMS_BACK
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from TAB_SMS_BACK
+		where SMS_ID = #{smsId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		TAB_SMS_BACK
+		where SMS_ID = #{smsId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.message.entity.TabMsgBackExample">
+		delete from TAB_SMS_BACK
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.message.entity.TabMsgBack">
+		insert into TAB_SMS_BACK
+		(SMS_ID, BUSINESS_NO, BUSINESS_TYPE,
+		CONTACTS, CONTACTS_PHONE, SPONSOR,
+		CONTENT, SMS_STATE,SMS_TYPE, SMS_TIME,
+		CREATE_TIME)
+		values
+		(#{smsId,jdbcType=VARCHAR}, #{businessNo,jdbcType=VARCHAR},
+		#{businessType,jdbcType=VARCHAR},
+		#{contacts,jdbcType=VARCHAR},
+		#{contactsPhone,jdbcType=VARCHAR}, #{sponsor,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR}, #{smsState,jdbcType=DECIMAL},
+		#{smsTime,jdbcType=TIMESTAMP},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.message.entity.TabMsgBack">
+		insert into TAB_SMS_BACK
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="smsId != null">
+				SMS_ID,
+			</if>
+			<if test="businessNo != null">
+				BUSINESS_NO,
+			</if>
+			<if test="businessType != null">
+				BUSINESS_TYPE,
+			</if>
+			<if test="contacts != null">
+				CONTACTS,
+			</if>
+			<if test="contactsPhone != null">
+				CONTACTS_PHONE,
+			</if>
+			<if test="sponsor != null">
+				SPONSOR,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="smsState != null">
+				SMS_STATE,
+			</if>
+			<if test="smsTime != null">
+				SMS_TIME,
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="smsId != null">
+				#{smsId,jdbcType=VARCHAR},
+			</if>
+			<if test="businessNo != null">
+				#{businessNo,jdbcType=VARCHAR},
+			</if>
+			<if test="businessType != null">
+				#{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="contacts != null">
+				#{contacts,jdbcType=VARCHAR},
+			</if>
+			<if test="contactsPhone != null">
+				#{contactsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="sponsor != null">
+				#{sponsor,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="smsState != null">
+				#{smsState,jdbcType=DECIMAL},
+			</if>
+			<if test="smsType != null">
+				#{smsType,jdbcType=DECIMAL},
+			</if>
+			<if test="smsTime != null">
+				#{smsTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.message.entity.TabMsgBackExample"
+		resultType="java.lang.Integer">
+		select count(*) from TAB_SMS_BACK
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update TAB_SMS_BACK
+		<set>
+			<if test="record.smsId != null">
+				SMS_ID = #{record.smsId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.businessNo != null">
+				BUSINESS_NO = #{record.businessNo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.businessType != null">
+				BUSINESS_TYPE = #{record.businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.contacts != null">
+				CONTACTS = #{record.contacts,jdbcType=VARCHAR},
+			</if>
+			<if test="record.contactsPhone != null">
+				CONTACTS_PHONE =
+				#{record.contactsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sponsor != null">
+				SPONSOR = #{record.sponsor,jdbcType=VARCHAR},
+			</if>
+			<if test="record.content != null">
+				CONTENT = #{record.content,jdbcType=VARCHAR},
+			</if>
+			<if test="record.smsState != null">
+				SMS_STATE = #{record.smsState,jdbcType=DECIMAL},
+			</if>
+			<if test="record.smsType != null">
+				SMS_TYPE = #{record.smsType,jdbcType=DECIMAL},
+			</if>
+			<if test="record.smsTime != null">
+				SMS_TIME = #{record.smsTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.createTime != null">
+				CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update TAB_SMS_BACK
+		set SMS_ID = #{record.smsId,jdbcType=VARCHAR},
+		BUSINESS_NO = #{record.businessNo,jdbcType=VARCHAR},
+		BUSINESS_TYPE =
+		#{record.businessType,jdbcType=VARCHAR},
+		CONTACTS =
+		#{record.contacts,jdbcType=VARCHAR},
+		CONTACTS_PHONE =
+		#{record.contactsPhone,jdbcType=VARCHAR},
+		SPONSOR =
+		#{record.sponsor,jdbcType=VARCHAR},
+		CONTENT =
+		#{record.content,jdbcType=VARCHAR},
+		SMS_STATE =
+		#{record.smsState,jdbcType=DECIMAL},
+		SMS_TYPE =
+		#{record.smsType,jdbcType=DECIMAL},
+		SMS_TIME =
+		#{record.smsTime,jdbcType=TIMESTAMP},
+		CREATE_TIME =
+		#{record.createTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.message.entity.TabMsgBack">
+		update TAB_SMS_BACK
+		<set>
+			<if test="businessNo != null">
+				BUSINESS_NO = #{businessNo,jdbcType=VARCHAR},
+			</if>
+			<if test="businessType != null">
+				BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+			</if>
+			<if test="contacts != null">
+				CONTACTS = #{contacts,jdbcType=VARCHAR},
+			</if>
+			<if test="contactsPhone != null">
+				CONTACTS_PHONE = #{contactsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="sponsor != null">
+				SPONSOR = #{sponsor,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="smsState != null">
+				SMS_STATE = #{smsState,jdbcType=DECIMAL},
+			</if>
+			<if test="smsType != null">
+				SMS_TYPE = #{smsType,jdbcType=DECIMAL},
+			</if>
+			<if test="smsTime != null">
+				SMS_TIME = #{smsTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where SMS_ID = #{smsId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.message.entity.TabMsgBack">
+		update
+		TAB_SMS_BACK
+		set BUSINESS_NO = #{businessNo,jdbcType=VARCHAR},
+		BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+		CONTACTS =
+		#{contacts,jdbcType=VARCHAR},
+		CONTACTS_PHONE =
+		#{contactsPhone,jdbcType=VARCHAR},
+		SPONSOR =
+		#{sponsor,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=VARCHAR},
+		SMS_STATE = #{smsState,jdbcType=DECIMAL},
+		SMS_TYPE = #{smsType,jdbcType=DECIMAL},
+		SMS_TIME =
+		#{smsTime,jdbcType=TIMESTAMP},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP}
+		where SMS_ID =
+		#{smsId,jdbcType=VARCHAR}
+	</update>
+	<!-- orale 不支持批量插入的正常写法 ，见注解动态sql形式 -->
+	<insert id="msgInsert" parameterType="java.util.List">
+		insert ALL
+		<foreach item="item" collection="list">
+			into TAB_SMS_BACK (SMS_ID,
+			BUSINESS_NO, BUSINESS_TYPE,
+			CONTACTS, CONTACTS_PHONE, SPONSOR,
+			CONTENT, SMS_STATE,SMS_TYPE)
+			values
+			(#{item.smsId,jdbcType=VARCHAR},
+			#{item.businessNo,jdbcType=VARCHAR},
+			#{item.businessType,jdbcType=VARCHAR},
+			#{item.contacts,jdbcType=VARCHAR},
+			#{item.contactsPhone,jdbcType=VARCHAR},
+			#{item.sponsor,jdbcType=VARCHAR},
+			#{item.content,jdbcType=VARCHAR},
+			#{item.smsState,jdbcType=DECIMAL},
+			#{item.smsType,jdbcType=DECIMAL}
+			)
+		</foreach>
+		SELECT 1 FROM DUAL
+	</insert>
+	<!--  更新短信发送状态为发送成功的状态-->
+	<update id="updateSmsToSendSuccess" parameterType="map">
+		update TAB_SMS_BACK
+		set SMS_STATE= 2    <!-- 更新短信状态为发送成功 -->
+		where SMS_STATE=1     <!-- 发送成功的状态 -->
+		and BUSINESS_TYPE= #{record.businessType,jdbcType=VARCHAR}   <!-- 业务类型相对应 -->
+		and CONTACTS_PHONE =#{record.contactsPhone,jdbcType=VARCHAR}
+	</update>
+	<!--  查询未发送短信  -->
+	<select id="selectNotSendByPage" resultMap="BaseResultMap" parameterType="com.message.entity.TabMsgBackExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from TAB_SMS_BACK
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<![CDATA[ and ROWNUM<=1000 ]]>
+		
+	</select>
+</mapper>
